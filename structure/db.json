@@ -1,0 +1,44 @@
+{
+	"root": {
+		"version": "1.0.0",
+		"category_serietv": {
+			"serietv": [
+				{
+					"title": "INSERT TITLE",
+					"link": "INSERT LINK",
+					"imgurl": "INSERT COVER LINK",
+					"head" : "INSERT HEAD IMAGE LINK"
+				}
+			],
+			"serietv_animate": [
+
+			]
+		},
+		"category_film": {
+			"animazione": [
+
+			],
+			"commedia": [
+
+			],
+			"avventura": [
+
+			],
+			"azione_thriller": [
+
+			],
+			"drammatico": [
+
+			],
+			"horror": [
+
+			],
+			"fantascienza": [
+
+			]
+		},
+		"codes": [
+
+		]
+	}
+}
