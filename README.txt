@@ -11,10 +11,15 @@ INFORMAZIONI CIRCA L'UTILIZZO DEL CODICE OPEN SOURCE
 
 SETUP
 L'applicativo fa uso di un database no-sql contenente metadati riguardanti i video da mostrare.
-La struttura del database è reperibile all'indirizzo lib/Utils/db.json
+La struttura del database è reperibile all'indirizzo structure/db.json
 È possibile modificare la struttura del database, ma con conseguente riadattamento del codice: il codice dell'app dipende fortemente dalla struttura del database, quindi c'è alto accoppiamento (purtroppo).
 È necessario, quindi, creare un database no-sql e caricarne la relativa struttura con dati eventualmente inseriti.
 Una volta fatto ciò, è necessario inserire l'indirizzo del database a cui fare le richieste REST in NetworkingController.databaseAddress
+NetworkingController è una classe con attributi databaseAddress statico. Ne segue il codice:
+
+class NetworkingController {
+  static String databaseAddress = "INSERT REMOTE ADDRESS";
+}
 
 INFORMAZIONI SULL'OGGETTO VIDEO
 Ogni video (bean) comprende quattro caratteristiche: il titolo, il link in cui è possibile vederlo, un'immagine di copertina e un'immagine visionabile nei dettagli del video.
