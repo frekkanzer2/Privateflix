@@ -5,6 +5,10 @@ Codice open source utilizzabile per creare app **personali** non a scopo di lucr
 L'app realizzabile risulta essere un media client per contenuti video hostati su piattaforme online.
 Attenzione: non mi ritengo responsabile circa l'uso illecito dell'app legato alla pirateria.
 
+IMPORTANTE
+Il codice è open source e non documentato siccome è un progetto personale realizzato just for fun in pochi giorni (si prevede di concluderlo in una settimana circa) al fine di migliorare le mie competenze con Flutter.
+Nel caso si voglia utilizzare il codice (vedi in particolare INFORMAZIONI CIRCA L'UTILIZZO DEL CODICE OPEN SOURCE), è bene sapere che il codice sul master è in sviluppo e non completo: pertanto, consiglio vivamente di attenersi ai codici delle release, i quali saranno almeno minimamente completi.
+
 INFORMAZIONI CIRCA L'UTILIZZO DEL CODICE OPEN SOURCE
 1. È possibile creare app personali, quindi che non siano a scopo di lucro;
 2. È obbligatorio non rimuovere i crediti dalla home, i quali devono rimanere visibili nella stessa identica posizione in riferimento al codice originario.
