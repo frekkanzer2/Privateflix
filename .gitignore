@@ -42,3 +42,4 @@ app.*.map.json
 
 # Personal
 /lib/Controllers/NetworkingController.dart
+structure/database.json
