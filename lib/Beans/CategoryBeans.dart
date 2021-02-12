@@ -44,5 +44,14 @@ class Category {
     return toReturn;
   }
 
+  void loadMultipleCategories(List<Category> categories) {
+    if (this.contents == null) {
+      this.contents = new List<Video>();
+      for (Category _c in categories)
+        for(Video v in _c.contents)
+          this.contents.add(v);
+    }
+  }
+
 }
 

@@ -8,6 +8,7 @@ import 'package:privateflix/filmsections.dart';
 import 'file:///D:/Workspaces/Github/Privateflix/lib/sectionpage.dart';
 import 'package:privateflix/home.dart';
 import 'package:privateflix/loading.dart';
+import 'package:privateflix/searchpage.dart';
 import 'package:privateflix/tvseriesections.dart';
 
 import '../videopage.dart';
@@ -83,6 +84,13 @@ class ButtonsController {
       MaterialPageRoute(
           builder: (context) => TVSeriesCategories(library: library)
       ), (r) => false,
+    );
+  }
+
+  static void onSearchPressed(BuildContext context, Category category, RootBean library) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => SearchPage(chosenCategory: category, library: library)),
     );
   }
 

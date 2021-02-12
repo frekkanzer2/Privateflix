@@ -70,7 +70,12 @@ class _HomePageState extends State<HomePage> {
                       size: 34,
                     ),
                     onPressed: () {
-                      print("Pressed search icon");
+                      Category homeCategory = new Category.newCategory(Definitions.label_allCategories, null);
+                      List<Category> all = new List<Category>();
+                      all.addAll(this.widget.library.films);
+                      all.addAll(this.widget.library.series);
+                      homeCategory.loadMultipleCategories(all);
+                      ButtonsController.onSearchPressed(context, homeCategory, this.widget.library);
                     },
                   ),
                 )

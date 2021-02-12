@@ -14,6 +14,7 @@ class Definitions {
   static final String database_category_tvSeries = "serietv";
   static final String label_allCategoryFilms = "Film";
   static final String label_allCategoryTvSeries = "Serie TV";
+  static final String label_allCategories = "Generale";
   static final String label_category_animation = "Animazione";
   static final String label_category_actionthriller = "Azione / Thriller";
   static final String label_category_adventure = "Avventura";

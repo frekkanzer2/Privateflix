@@ -7,6 +7,7 @@ import 'package:privateflix/Beans/CategoryBeans.dart';
 import 'package:privateflix/Beans/RootBean.dart';
 import 'package:privateflix/Controllers/ButtonsController.dart';
 import 'package:privateflix/Utils/Colors.dart';
+import 'package:privateflix/Utils/Definitions.dart';
 
 class FilmCategories extends StatefulWidget {
   @override
@@ -50,7 +51,9 @@ class _FilmCategoriesState extends State<FilmCategories> {
                       size: 34,
                     ),
                     onPressed: () {
-                      print("Pressed search icon");
+                      Category filmsCategory = new Category.newCategory(Definitions.label_allCategoryFilms, null);
+                      filmsCategory.loadMultipleCategories(this.widget.library.films);
+                      ButtonsController.onSearchPressed(context, filmsCategory, this.widget.library);
                     },
                   ),
                 )
