@@ -157,7 +157,7 @@ class _PrivateFlixHomeState extends State<PrivateFlixHome> {
             color: ColorBackgroundBlue,
           ),
           Container(
-            margin: EdgeInsets.only(top: mqd.size.height * 69.8 / 100, left: mqd.size.width * 6.2 / 100),
+            margin: EdgeInsets.only(top: mqd.size.height * 71.5 / 100, left: mqd.size.width * 6.2 / 100),
             child: AutoSizeText(
               "© Francesco Abate · www.fabate.altervista.org",
               minFontSize: 12,

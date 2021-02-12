@@ -83,4 +83,12 @@ class RootBean {
     return toReturn;
   }
 
+  Category getCategoryByName(String categoryName) {
+    for (Category c in this.films)
+      if (c.name == categoryName) return c;
+    for (Category c in this.series)
+      if (c.name == categoryName) return c;
+    return null;
+  }
+
 }

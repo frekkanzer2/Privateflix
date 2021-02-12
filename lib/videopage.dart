@@ -3,6 +3,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:privateflix/Beans/RootBean.dart';
 import 'package:privateflix/Beans/VideoBeans.dart';
 import 'package:privateflix/Controllers/ButtonsController.dart';
 import 'package:privateflix/Utils/Colors.dart';
@@ -11,8 +12,9 @@ import 'package:privateflix/Utils/Definitions.dart';
 class VideoDetails extends StatefulWidget {
 
   final Video inputVideo;
+  final RootBean packet;
 
-  VideoDetails({Key key, @required this.inputVideo}) : super(key: key);
+  VideoDetails({Key key, @required this.inputVideo, @required this.packet}) : super(key: key);
 
   @override
   _VideoDetailsState createState() => _VideoDetailsState();
@@ -22,11 +24,15 @@ class _VideoDetailsState extends State<VideoDetails> {
   @override
   Widget build(BuildContext context) {
 
-    final MediaQueryData mqd = MediaQuery.of(context);
+    MediaQueryData mqd = MediaQuery.of(context);
     String type = "";
-    if (this.widget.inputVideo.categoryName == Definitions.label_category_tvSeries || this.widget.inputVideo.categoryName == Definitions.label_category_animatedTvSeries)
-      type = "Playlist della serie TV";
+    if (this.widget.inputVideo.categoryName == Definitions.label_category_tvSeries)
+      type = "Playlist della categoria Serie TV";
+    else if (this.widget.inputVideo.categoryName == Definitions.label_category_animatedTvSeries)
+      type = "Playlist della categoria Serie TV Animate";
     else type = "Film della categoria " + this.widget.inputVideo.categoryName;
+
+    var imageHeight = mqd.size.width / (384/272);
 
     return Scaffold(
       appBar: AppBar(
@@ -50,9 +56,9 @@ class _VideoDetailsState extends State<VideoDetails> {
           splashColor: Colors.transparent,
           highlightColor: Colors.transparent,
           padding: EdgeInsets.only(top: 3, left: 4),
-            icon: Icon(FontAwesomeIcons.angleLeft, color: ColorWhite, size: 30,),
-            onPressed: () => Navigator.of(context).pop(),
-          ),
+          icon: Icon(FontAwesomeIcons.angleLeft, color: ColorWhite, size: 30,),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
       ),
       body: Material(
         child: Stack(
@@ -65,7 +71,7 @@ class _VideoDetailsState extends State<VideoDetails> {
                 children: [
                   Container(
                     width: mqd.size.width,
-                    height: mqd.size.width / (384/272), // setting proportions
+                    height: imageHeight, // setting proportions
                     child: FittedBox(
                       child: CachedNetworkImage(
                         imageUrl: this.widget.inputVideo.headerlink,
@@ -148,7 +154,7 @@ class _VideoDetailsState extends State<VideoDetails> {
               ),
             ),
             Container(
-              margin: EdgeInsets.only(top: mqd.size.height * 38.5 / 100, left: mqd.size.width * 78 / 100),
+              margin: EdgeInsets.only(top: imageHeight - 27, left: mqd.size.width * 78 / 100),
               child: RawMaterialButton(
                 onPressed: () => {
                   ButtonsController.onPlayPressed(this.widget.inputVideo),
@@ -165,20 +171,29 @@ class _VideoDetailsState extends State<VideoDetails> {
               ),
             ),
             Container(
-              margin: EdgeInsets.only(top: mqd.size.height * 76.2 / 100, left: mqd.size.width * 79 / 100),
-              child: RawMaterialButton(
-                onPressed: () => {
-                  print("PRESSED VIEW OTHER"),
-                },
-                elevation: 2.0,
-                fillColor: ColorSoftBlue,
-                child: Icon(
-                  Icons.arrow_forward_ios_rounded,
-                  size: 35.0,
-                  color: ColorWhite,
-                ),
-                padding: EdgeInsets.fromLTRB(15, 15, 10, 14),
-                shape: CircleBorder(),
+              height: mqd.size.height,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Expanded(child: Container()),
+                  Container(
+                    margin: EdgeInsets.only(left: mqd.size.width * 79 / 100, bottom: mqd.size.height * 1.95 / 100),
+                    child: RawMaterialButton(
+                      onPressed: () => {
+                        ButtonsController.onSameCategoryPressed(context, this.widget.packet.getCategoryByName(this.widget.inputVideo.categoryName), this.widget.packet),
+                      },
+                      elevation: 2.0,
+                      fillColor: ColorSoftBlue,
+                      child: Icon(
+                        Icons.arrow_forward_ios_rounded,
+                        size: 35.0,
+                        color: ColorWhite,
+                      ),
+                      padding: EdgeInsets.fromLTRB(15, 15, 10, 14),
+                      shape: CircleBorder(),
+                    ),
+                  ),
+                ],
               ),
             ),
           ],

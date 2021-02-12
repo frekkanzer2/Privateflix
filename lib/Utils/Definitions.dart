@@ -24,4 +24,15 @@ class Definitions {
   static final String label_category_animatedTvSeries = "Serie TV Animate";
   static final String label_category_tvSeries = "Serie TV";
 
+  static String getPresentationSentence(String name) {
+    if (name == label_category_animation) return "I cartoni non sono per bambini!";
+    if (name == label_category_actionthriller) return "Adrenalina pura";
+    if (name == label_category_adventure) return "A chi non manca di coraggio";
+    if (name == label_category_drama) return "Allarme lacrime!";
+    if (name == label_category_comedy) return "Non smettere mai di ridere";
+    if (name == label_category_fantasy) return "C'è qualcosa di surreale...";
+    if (name == label_category_horror) return "Non adatto ai deboli di cuore";
+
+  }
+
 }

@@ -10,6 +10,7 @@ import 'package:privateflix/Beans/RootBean.dart';
 import 'package:privateflix/Beans/VideoBeans.dart';
 import 'package:privateflix/Controllers/ButtonsController.dart';
 import 'package:privateflix/Utils/Colors.dart';
+import 'package:privateflix/Utils/Definitions.dart';
 
 class HomePage extends StatefulWidget {
 
@@ -28,7 +29,7 @@ class _HomePageState extends State<HomePage> {
   List<Video> randomTVSeries = new List<Video>();
   List<Category> randomCategories = new List<Category>();
   int numberOfRandomPreviews = 5;
-  int numberOfRandomCategories = 3;
+  int numberOfRandomCategories = 2;
 
   // ignore: must_call_super
   initState() {
@@ -72,6 +73,23 @@ class _HomePageState extends State<HomePage> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    Container(
+                      margin: EdgeInsets.only(top: 2, bottom: 14),
+                      child: Row(
+                        children: [
+                          AutoSizeText(
+                            "Goditi qualcosa di nuovo",
+                            style: TextStyle(
+                                fontSize: 24,
+                                color: ColorSoftBlue,
+                                fontWeight: FontWeight.w600
+                            ),
+                          ),
+                          Expanded(child: Container()),
+                          Icon(Icons.star, size: 26, color: ColorSoftBlue,),
+                        ],
+                      ),
+                    ),
                     /*
                     *     Section: suggested films
                     * */
@@ -97,7 +115,7 @@ class _HomePageState extends State<HomePage> {
                             color: ColorBackgroundBlue,
                               child: FlatButton(
                                   onPressed: () {
-                                    ButtonsController.onPreviewPressed(context, randomFilms[index]);
+                                    ButtonsController.onPreviewPressed(context, randomFilms[index], this.widget.library);
                                   },
                                   padding: EdgeInsets.zero,
                                   child: Container(
@@ -140,7 +158,7 @@ class _HomePageState extends State<HomePage> {
                                 color: ColorBackgroundBlue,
                                 child: FlatButton(
                                   onPressed: () {
-                                    ButtonsController.onPreviewPressed(context, randomTVSeries[index]);
+                                    ButtonsController.onPreviewPressed(context, randomTVSeries[index], this.widget.library);
                                   },
                                   padding: EdgeInsets.zero,
                                   child: Container(
@@ -161,12 +179,34 @@ class _HomePageState extends State<HomePage> {
                     /*
                     *     RANDOM CATEGORIES
                     * */
+                    Divider(
+                      color: ColorSoftGray,
+                      height: 24,
+                      thickness: 1,
+                    ),
+                    Container(
+                      margin: EdgeInsets.only(top: 4, bottom: 14),
+                      child: Row(
+                        children: [
+                          AutoSizeText(
+                            "Categorie interessanti",
+                            style: TextStyle(
+                                fontSize: 24,
+                                color: ColorSoftBlue,
+                                fontWeight: FontWeight.w600
+                            ),
+                          ),
+                          Expanded(child: Container()),
+                          Icon(Icons.local_fire_department, size: 26, color: ColorSoftBlue,),
+                        ],
+                      ),
+                    ),
                     for (int category_index = 0; category_index < numberOfRandomCategories; category_index++)
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           AutoSizeText(
-                            randomCategories[category_index].name,
+                            Definitions.getPresentationSentence(randomCategories[category_index].name),
                             style: TextStyle(
                                 fontSize: 20,
                                 color: ColorWhite,
@@ -188,7 +228,7 @@ class _HomePageState extends State<HomePage> {
                                       color: ColorBackgroundBlue,
                                       child: FlatButton(
                                         onPressed: () {
-                                          ButtonsController.onPreviewPressed(context, randomCategories[category_index].contents[film_index]);
+                                          ButtonsController.onPreviewPressed(context, randomCategories[category_index].contents[film_index], this.widget.library);
                                         },
                                         padding: EdgeInsets.zero,
                                         child: Container(
@@ -234,15 +274,16 @@ class _HomePageState extends State<HomePage> {
                     label: 'Home',
                   ),
                   BottomNavigationBarItem(
-                      icon: Icon(FontAwesomeIcons.photoVideo),
-                      label: 'Serie TV',
+                    icon: Icon(FontAwesomeIcons.photoVideo),
+                    label: 'Serie TV',
                   )
                 ],
+                onTap: (int newIndex) => ButtonsController.onNavButtonPressed(context, this.widget.library, 1, newIndex),
               ),
             ),
           ),
           Container(
-            margin: EdgeInsets.only(left: mqd.size.width * 86 / 100, top: mqd.size.height * 4.7 / 100),
+            margin: EdgeInsets.only(left: mqd.size.width * 86 / 100, top: 56),
             child: IconButton(
               icon: Icon(
                 Icons.search_rounded,
