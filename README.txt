@@ -28,3 +28,7 @@ class NetworkingController {
 INFORMAZIONI SULL'OGGETTO VIDEO
 Ogni video (bean) comprende quattro caratteristiche: il titolo, il link in cui è possibile vederlo, un'immagine di copertina e un'immagine visionabile nei dettagli del video.
 Ovviamente è possibile modificare il bean in modo tale che rientrino maggiori informazioni per ogni video.
+
+BUILD
+1. Generare una key secondo la guida di Flutter
+2. Creare il file al punto "Reference the keystore from the app" della guida
