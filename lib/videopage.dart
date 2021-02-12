@@ -177,7 +177,7 @@ class _VideoDetailsState extends State<VideoDetails> {
                 children: [
                   Expanded(child: Container()),
                   Container(
-                    margin: EdgeInsets.only(left: mqd.size.width * 79 / 100, bottom: mqd.size.height * 1.95 / 100),
+                    margin: EdgeInsets.only(left: mqd.size.width * 79 / 100, bottom: mqd.size.height * 2 / 100),
                     child: RawMaterialButton(
                       onPressed: () => {
                         ButtonsController.onSameCategoryPressed(context, this.widget.packet.getCategoryByName(this.widget.inputVideo.categoryName), this.widget.packet),

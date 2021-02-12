@@ -44,14 +44,14 @@ class _HomePageState extends State<HomePage> {
     final MediaQueryData mqd = MediaQuery.of(context);
 
     return Material(
-      child: Stack(
-        children: [
-          Scaffold(
-            appBar: AppBar(
-              toolbarHeight: 62,
-              title: Container(
-                margin: EdgeInsets.only(top: 6, left: mqd.size.width * 0/100),
-                child: Text(
+      child: Scaffold(
+        appBar: AppBar(
+          toolbarHeight: 62,
+          title: Container(
+            margin: EdgeInsets.only(top: 6, left: mqd.size.width * 0/100),
+            child: Stack(
+              children: [
+                Text(
                   "PRIVATEFLIX",
                   style: GoogleFonts.bigShouldersDisplay(
                     textStyle: TextStyle(
@@ -61,241 +61,241 @@ class _HomePageState extends State<HomePage> {
                     fontWeight: FontWeight.w700,
                   ),
                 ),
-              ),
-              backgroundColor: ColorBlackBlue,
-            ),
-            body: Container(
-              height: mqd.size.height,
-              width: mqd.size.width,
-              color: ColorBackgroundBlue,
-              padding: EdgeInsets.fromLTRB(18, 14, 18, 14),
-              child: SingleChildScrollView(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Container(
-                      margin: EdgeInsets.only(top: 2, bottom: 14),
-                      child: Row(
-                        children: [
-                          AutoSizeText(
-                            "Goditi qualcosa di nuovo",
-                            style: TextStyle(
-                                fontSize: 24,
-                                color: ColorSoftBlue,
-                                fontWeight: FontWeight.w600
-                            ),
-                          ),
-                          Expanded(child: Container()),
-                          Icon(Icons.star, size: 26, color: ColorSoftBlue,),
-                        ],
-                      ),
+                Container(
+                  margin: EdgeInsets.only(left: mqd.size.width * 83 / 100, bottom: 2),
+                  child: IconButton(
+                    icon: Icon(
+                      Icons.search_rounded,
+                      color: ColorWhite,
+                      size: 34,
                     ),
-                    /*
-                    *     Section: suggested films
-                    * */
-                    AutoSizeText(
-                      "Film consigliati",
-                      style: TextStyle(
-                        fontSize: 20,
-                        color: ColorWhite,
-                        fontWeight: FontWeight.w600
-                      ),
-                    ),
-                    Container(
-                      margin: EdgeInsets.only(top: 8, bottom: 14),
-                      height: 187,
-                      child: ListView.builder(
-                        scrollDirection: Axis.horizontal,
-                        itemCount: randomFilms.length,
-                        itemBuilder: (BuildContext context, int index) {
-                          return Container(
-                            width: 128,
-                            height: 187,
-                            margin: (index != randomFilms.length-1) ? EdgeInsets.only(right: 12) : EdgeInsets.all(0),
-                            color: ColorBackgroundBlue,
-                              child: FlatButton(
-                                  onPressed: () {
-                                    ButtonsController.onPreviewPressed(context, randomFilms[index], this.widget.library);
-                                  },
-                                  padding: EdgeInsets.zero,
-                                  child: Container(
-                                    width: 128,
-                                    height: 187,
-                                    child: CachedNetworkImage(
-                                      imageUrl: randomFilms[index].imagelink,
-                                      progressIndicatorBuilder: (context, url, downloadProgress) =>
-                                          CircularProgressIndicator(value: downloadProgress.progress),
-                                      errorWidget: (context, url, error) => Icon(Icons.error),
-                                    ),
-                                  ),
-                              )
-                          );
-                        }
-                      ),
-                    ),
-                    /*
-                    *     Section: suggested tv series
-                    * */
-                    AutoSizeText(
-                      "Serie TV consigliate",
-                      style: TextStyle(
-                          fontSize: 20,
-                          color: ColorWhite,
-                          fontWeight: FontWeight.w600
-                      ),
-                    ),
-                    Container(
-                      margin: EdgeInsets.only(top: 8, bottom: 12),
-                      height: 187,
-                      child: ListView.builder(
-                          scrollDirection: Axis.horizontal,
-                          itemCount: randomTVSeries.length,
-                          itemBuilder: (BuildContext context, int index) {
-                            return Container(
-                                width: 128,
-                                height: 187,
-                                margin: (index != randomTVSeries.length-1) ? EdgeInsets.only(right: 12) : EdgeInsets.all(0),
-                                color: ColorBackgroundBlue,
-                                child: FlatButton(
-                                  onPressed: () {
-                                    ButtonsController.onPreviewPressed(context, randomTVSeries[index], this.widget.library);
-                                  },
-                                  padding: EdgeInsets.zero,
-                                  child: Container(
-                                    width: 128,
-                                    height: 187,
-                                    child: CachedNetworkImage(
-                                      imageUrl: randomTVSeries[index].imagelink,
-                                      progressIndicatorBuilder: (context, url, downloadProgress) =>
-                                          CircularProgressIndicator(value: downloadProgress.progress),
-                                      errorWidget: (context, url, error) => Icon(Icons.error),
-                                    ),
-                                  ),
-                                )
-                            );
-                          }
-                      ),
-                    ),
-                    /*
-                    *     RANDOM CATEGORIES
-                    * */
-                    Divider(
-                      color: ColorSoftGray,
-                      height: 24,
-                      thickness: 1,
-                    ),
-                    Container(
-                      margin: EdgeInsets.only(top: 4, bottom: 14),
-                      child: Row(
-                        children: [
-                          AutoSizeText(
-                            "Categorie interessanti",
-                            style: TextStyle(
-                                fontSize: 24,
-                                color: ColorSoftBlue,
-                                fontWeight: FontWeight.w600
-                            ),
-                          ),
-                          Expanded(child: Container()),
-                          Icon(Icons.local_fire_department, size: 26, color: ColorSoftBlue,),
-                        ],
-                      ),
-                    ),
-                    for (int category_index = 0; category_index < numberOfRandomCategories; category_index++)
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          AutoSizeText(
-                            Definitions.getPresentationSentence(randomCategories[category_index].name),
-                            style: TextStyle(
-                                fontSize: 20,
-                                color: ColorWhite,
-                                fontWeight: FontWeight.w600
-                            ),
-                          ),
-                          Container(
-                            margin: EdgeInsets.only(top: 8, bottom: 12),
-                            height: 187,
-                            child: ListView.builder(
-                                scrollDirection: Axis.horizontal,
-                                itemCount: (numberOfRandomPreviews > randomCategories[category_index].contents.length) ?
-                                                randomCategories[category_index].contents.length : numberOfRandomPreviews,
-                                itemBuilder: (BuildContext context, int film_index) {
-                                  return Container(
-                                      width: 128,
-                                      height: 187,
-                                      margin: (film_index != numberOfRandomPreviews-1) ? EdgeInsets.only(right: 12) : EdgeInsets.all(0),
-                                      color: ColorBackgroundBlue,
-                                      child: FlatButton(
-                                        onPressed: () {
-                                          ButtonsController.onPreviewPressed(context, randomCategories[category_index].contents[film_index], this.widget.library);
-                                        },
-                                        padding: EdgeInsets.zero,
-                                        child: Container(
-                                          width: 128,
-                                          height: 187,
-                                          child: CachedNetworkImage(
-                                            imageUrl: randomCategories[category_index].contents[film_index].imagelink,
-                                            progressIndicatorBuilder: (context, url, downloadProgress) =>
-                                                CircularProgressIndicator(value: downloadProgress.progress),
-                                            errorWidget: (context, url, error) => Icon(Icons.error),
-                                          ),
-                                        ),
-                                      )
-                                  );
-                                }
-                            ),
-                          ),
-                        ],
-                      ),
-                  ],
-                ),
-              ),
-            ),
-            bottomNavigationBar: Theme(
-              data: Theme.of(context).copyWith(
-                // sets the background color of the `BottomNavigationBar`
-                canvasColor: ColorBlackBlue,
-                // sets the active color of the `BottomNavigationBar` if `Brightness` is light
-                primaryColor: ColorSoftBlue,
-                textTheme: Theme.of(context).textTheme.copyWith(
-                  caption: new TextStyle(color: ColorWhite),
+                    onPressed: () {
+                      print("Pressed search icon");
+                    },
+                  ),
                 )
-              ), // sets the inactive color of the `BottomNavigationBar`
-              child: BottomNavigationBar(
-                currentIndex: 1,
-                items: [
-                  BottomNavigationBarItem(
-                    icon: new Icon(FontAwesomeIcons.video),
-                    label: 'Film',
-                  ),
-                  BottomNavigationBarItem(
-                    icon: new Icon(FontAwesomeIcons.home),
-                    label: 'Home',
-                  ),
-                  BottomNavigationBarItem(
-                    icon: Icon(FontAwesomeIcons.photoVideo),
-                    label: 'Serie TV',
-                  )
-                ],
-                onTap: (int newIndex) => ButtonsController.onNavButtonPressed(context, this.widget.library, 1, newIndex),
-              ),
+              ],
             ),
           ),
-          Container(
-            margin: EdgeInsets.only(left: mqd.size.width * 86 / 100, top: 56),
-            child: IconButton(
-              icon: Icon(
-                Icons.search_rounded,
-                color: ColorWhite,
-                size: 38,
-              ),
-              onPressed: () {
-                print("Pressed search icon");
-              },
+          backgroundColor: ColorBlackBlue,
+        ),
+        body: Container(
+          height: mqd.size.height,
+          width: mqd.size.width,
+          color: ColorBackgroundBlue,
+          padding: EdgeInsets.fromLTRB(18, 14, 18, 14),
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  margin: EdgeInsets.only(top: 2, bottom: 14),
+                  child: Row(
+                    children: [
+                      AutoSizeText(
+                        "Goditi qualcosa di nuovo",
+                        style: TextStyle(
+                            fontSize: 24,
+                            color: ColorSoftBlue,
+                            fontWeight: FontWeight.w600
+                        ),
+                      ),
+                      Expanded(child: Container()),
+                      Icon(Icons.star, size: 26, color: ColorSoftBlue,),
+                    ],
+                  ),
+                ),
+                /*
+                *     Section: suggested films
+                * */
+                AutoSizeText(
+                  "Film consigliati",
+                  style: TextStyle(
+                    fontSize: 20,
+                    color: ColorWhite,
+                    fontWeight: FontWeight.w600
+                  ),
+                ),
+                Container(
+                  margin: EdgeInsets.only(top: 8, bottom: 14),
+                  height: 187,
+                  child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: randomFilms.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      return Container(
+                        width: 128,
+                        height: 187,
+                        margin: (index != randomFilms.length-1) ? EdgeInsets.only(right: 12) : EdgeInsets.all(0),
+                        color: ColorBackgroundBlue,
+                          child: FlatButton(
+                              onPressed: () {
+                                ButtonsController.onPreviewPressed(context, randomFilms[index], this.widget.library);
+                              },
+                              padding: EdgeInsets.zero,
+                              child: Container(
+                                width: 128,
+                                height: 187,
+                                child: CachedNetworkImage(
+                                  imageUrl: randomFilms[index].imagelink,
+                                  progressIndicatorBuilder: (context, url, downloadProgress) =>
+                                      CircularProgressIndicator(value: downloadProgress.progress),
+                                  errorWidget: (context, url, error) => Icon(Icons.error),
+                                ),
+                              ),
+                          )
+                      );
+                    }
+                  ),
+                ),
+                /*
+                *     Section: suggested tv series
+                * */
+                AutoSizeText(
+                  "Serie TV consigliate",
+                  style: TextStyle(
+                      fontSize: 20,
+                      color: ColorWhite,
+                      fontWeight: FontWeight.w600
+                  ),
+                ),
+                Container(
+                  margin: EdgeInsets.only(top: 8, bottom: 12),
+                  height: 187,
+                  child: ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: randomTVSeries.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return Container(
+                            width: 128,
+                            height: 187,
+                            margin: (index != randomTVSeries.length-1) ? EdgeInsets.only(right: 12) : EdgeInsets.all(0),
+                            color: ColorBackgroundBlue,
+                            child: FlatButton(
+                              onPressed: () {
+                                ButtonsController.onPreviewPressed(context, randomTVSeries[index], this.widget.library);
+                              },
+                              padding: EdgeInsets.zero,
+                              child: Container(
+                                width: 128,
+                                height: 187,
+                                child: CachedNetworkImage(
+                                  imageUrl: randomTVSeries[index].imagelink,
+                                  progressIndicatorBuilder: (context, url, downloadProgress) =>
+                                      CircularProgressIndicator(value: downloadProgress.progress),
+                                  errorWidget: (context, url, error) => Icon(Icons.error),
+                                ),
+                              ),
+                            )
+                        );
+                      }
+                  ),
+                ),
+                /*
+                *     RANDOM CATEGORIES
+                * */
+                Divider(
+                  color: ColorSoftGray,
+                  height: 24,
+                  thickness: 1,
+                ),
+                Container(
+                  margin: EdgeInsets.only(top: 4, bottom: 14),
+                  child: Row(
+                    children: [
+                      AutoSizeText(
+                        "Categorie interessanti",
+                        style: TextStyle(
+                            fontSize: 24,
+                            color: ColorSoftBlue,
+                            fontWeight: FontWeight.w600
+                        ),
+                      ),
+                      Expanded(child: Container()),
+                      Icon(Icons.local_fire_department, size: 26, color: ColorSoftBlue,),
+                    ],
+                  ),
+                ),
+                for (int category_index = 0; category_index < numberOfRandomCategories; category_index++)
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      AutoSizeText(
+                        Definitions.getPresentationSentence(randomCategories[category_index].name),
+                        style: TextStyle(
+                            fontSize: 20,
+                            color: ColorWhite,
+                            fontWeight: FontWeight.w600
+                        ),
+                      ),
+                      Container(
+                        margin: EdgeInsets.only(top: 8, bottom: 12),
+                        height: 187,
+                        child: ListView.builder(
+                            scrollDirection: Axis.horizontal,
+                            itemCount: (numberOfRandomPreviews > randomCategories[category_index].contents.length) ?
+                                            randomCategories[category_index].contents.length : numberOfRandomPreviews,
+                            itemBuilder: (BuildContext context, int film_index) {
+                              return Container(
+                                  width: 128,
+                                  height: 187,
+                                  margin: (film_index != numberOfRandomPreviews-1) ? EdgeInsets.only(right: 12) : EdgeInsets.all(0),
+                                  color: ColorBackgroundBlue,
+                                  child: FlatButton(
+                                    onPressed: () {
+                                      ButtonsController.onPreviewPressed(context, randomCategories[category_index].contents[film_index], this.widget.library);
+                                    },
+                                    padding: EdgeInsets.zero,
+                                    child: Container(
+                                      width: 128,
+                                      height: 187,
+                                      child: CachedNetworkImage(
+                                        imageUrl: randomCategories[category_index].contents[film_index].imagelink,
+                                        progressIndicatorBuilder: (context, url, downloadProgress) =>
+                                            CircularProgressIndicator(value: downloadProgress.progress),
+                                        errorWidget: (context, url, error) => Icon(Icons.error),
+                                      ),
+                                    ),
+                                  )
+                              );
+                            }
+                        ),
+                      ),
+                    ],
+                  ),
+              ],
             ),
-          )
-        ],
+          ),
+        ),
+        bottomNavigationBar: Theme(
+          data: Theme.of(context).copyWith(
+            // sets the background color of the `BottomNavigationBar`
+            canvasColor: ColorBlackBlue,
+            // sets the active color of the `BottomNavigationBar` if `Brightness` is light
+            primaryColor: ColorSoftBlue,
+            textTheme: Theme.of(context).textTheme.copyWith(
+              caption: new TextStyle(color: ColorWhite),
+            )
+          ), // sets the inactive color of the `BottomNavigationBar`
+          child: BottomNavigationBar(
+            currentIndex: 1,
+            items: [
+              BottomNavigationBarItem(
+                icon: new Icon(FontAwesomeIcons.video),
+                label: 'Film',
+              ),
+              BottomNavigationBarItem(
+                icon: new Icon(FontAwesomeIcons.home),
+                label: 'Home',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(FontAwesomeIcons.photoVideo),
+                label: 'Serie TV',
+              )
+            ],
+            onTap: (int newIndex) => ButtonsController.onNavButtonPressed(context, this.widget.library, 1, newIndex),
+          ),
+        ),
       ),
     );
   }
