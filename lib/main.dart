@@ -1,5 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:privateflix/Controllers/ButtonsController.dart';
 import 'package:privateflix/Utils/Colors.dart';
@@ -57,6 +58,10 @@ class _BlackLoadingState extends State<BlackLoading> {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
     return Container(
       color: Colors.black87,
     );
