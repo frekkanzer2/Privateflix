@@ -14,11 +14,11 @@ import '../videopage.dart';
 
 class ButtonsController {
 
-  static void onRegisterCode(BuildContext context){
+  static void onRegisterCode(BuildContext context, String code){
     Navigator.pushAndRemoveUntil(
         context,
         MaterialPageRoute(
-            builder: (context) => LoadingContents()
+            builder: (context) => LoadingContents(registerCode: code, autoLogin: false,)
         ), (r) => false,
     );
   }

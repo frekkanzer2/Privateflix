@@ -24,6 +24,10 @@ class Definitions {
   static final String label_category_animatedTvSeries = "Serie TV Animate";
   static final String label_category_tvSeries = "Serie TV";
 
+  static final String prefs_code = "hascode";
+  static final String prefs_month = "loginmonth";
+  static final String prefs_year = "loginyear";
+
   static String getPresentationSentence(String name) {
     if (name == label_category_animation) return "I cartoni non sono per bambini!";
     if (name == label_category_actionthriller) return "Adrenalina pura";

@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:delayed_display/delayed_display.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
 import 'package:privateflix/Beans/CategoryBeans.dart';
@@ -13,10 +14,17 @@ import 'package:privateflix/Controllers/NetworkingController.dart';
 import 'package:privateflix/Utils/Colors.dart';
 import 'package:privateflix/Utils/Definitions.dart';
 import 'package:privateflix/home.dart';
+import 'package:privateflix/main.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoadingContents extends StatefulWidget {
   @override
   LoadingContents_State createState() => LoadingContents_State();
+
+  final String registerCode;
+  bool autoLogin = false;
+  LoadingContents({Key key, @required this.registerCode, this.autoLogin}) : super(key: key);
+
 }
 
 class LoadingContents_State extends State<LoadingContents> {
@@ -87,7 +95,7 @@ class LoadingContents_State extends State<LoadingContents> {
     bool canChangeRoom = true;
     Timer(
       Duration(
-        seconds: 10,
+        seconds: 20,
       ),
         // CALLBACK
         () {
@@ -99,9 +107,61 @@ class LoadingContents_State extends State<LoadingContents> {
           }
         }
     );
-    String url = NetworkingController.databaseAddress;
+    String url = NetworkingController.databaseAddress + "/root.json";
     http.Response response = await http.get(url);
     if (response != null && response.statusCode == 200) {
+      if (!this.widget.autoLogin) {
+        bool canContinue = false;
+        int record_index = -1;
+        // must check code
+        List allCodes = json.decode(response.body)["codes"];
+        if (allCodes == null) {
+          isExit = true;
+          canChangeRoom = false;
+          Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(
+                builder: (context) => PrivateFlixHome(external_errorMessage: "Codice non esistente",)
+            ), (r) => false,
+          );
+        } else {
+          for (int i = 0; i < allCodes.length; i++)
+            if (allCodes[i] == null)
+              allCodes.replaceRange(i, i+1, ["nullcode"]);
+          for (var _db_code in allCodes) {
+            record_index++;
+            if (this.widget.registerCode.toLowerCase() ==
+                _db_code.toLowerCase()) {
+              canContinue = true;
+              break;
+            }
+          }
+          if (!canContinue) {
+            isExit = true;
+            canChangeRoom = false;
+            Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => PrivateFlixHome(external_errorMessage: "Codice non esistente",)
+              ), (r) => false,
+            );
+          } else {
+            String deleteUrl = NetworkingController.databaseAddress + "/root/codes/" + record_index.toString() + "/.json";
+            http.Response response = await http.delete(deleteUrl);
+            if (response.statusCode == 200) {
+              // add an autologin flag that expires at the end of the month
+              SharedPreferences prefs = await SharedPreferences.getInstance();
+              await prefs.setBool(Definitions.prefs_code, true);
+              DateTime today = new DateTime.now();
+              await prefs.setInt(Definitions.prefs_month, today.month);
+              await prefs.setInt(Definitions.prefs_year, today.year);
+            } else {
+              SystemNavigator.pop();
+            }
+          }
+        }
+      }
+      // after code check
       var allFilmCategories = json.decode(response.body)[Definitions.database_allCategoryFilms];
       var allTvSeriesCategories = json.decode(response.body)[Definitions.database_allCategoryTvSeries];
       var tmp_category = null;
