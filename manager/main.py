@@ -29,7 +29,7 @@ with open(filepath, "r+") as f:
                 continue
             data['root']['category_film'][category].insert(0, {"title": title, "link": videolink, "imgurl": coverlink, "head": headerlink})
             f.seek(0)
-            json.dump(data, f, indent=4)
+            json.dump(data, f, indent=4, ensure_ascii=False)
             f.truncate()
 
 
