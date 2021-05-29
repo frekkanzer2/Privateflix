@@ -5,10 +5,10 @@ import 'package:privateflix/Beans/CategoryBeans.dart';
 import 'package:privateflix/Beans/RootBean.dart';
 import 'package:privateflix/Beans/VideoBeans.dart';
 import 'package:privateflix/filmsections.dart';
-import 'file:///D:/Workspaces/Github/Privateflix/lib/sectionpage.dart';
 import 'package:privateflix/home.dart';
 import 'package:privateflix/loading.dart';
 import 'package:privateflix/searchpage.dart';
+import 'package:privateflix/sectionpage.dart';
 import 'package:privateflix/tvseriesections.dart';
 
 import '../videopage.dart';
