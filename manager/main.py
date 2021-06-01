@@ -31,5 +31,9 @@ with open(filepath, "r+") as f:
             f.seek(0)
             json.dump(data, f, indent=4, ensure_ascii=False)
             f.truncate()
-
+            # special chars to edit manually:
+            # Ã¨ -> è
+            # Ã -> à
+            # Ã¹ -> ù
+            # Ã² -> ò
 
