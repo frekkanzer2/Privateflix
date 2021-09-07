@@ -45,19 +45,27 @@ class _ChosenSectionState extends State<ChosenSection> {
                     fontWeight: FontWeight.w700,
                   ),
                 ),
-                Container(
-                  margin: EdgeInsets.only(left: mqd.size.width * 83 / 100, bottom: 2),
-                  child: IconButton(
-                    icon: Icon(
-                      Icons.search_rounded,
-                      color: ColorWhite,
-                      size: 34,
+                Row(
+                  children: [
+                    Expanded(
+                      child: Container(),
+                      flex: 1,
                     ),
-                    onPressed: () {
-                      print("Pressed search icon");
-                    },
-                  ),
-                )
+                    Container(
+                      margin: EdgeInsets.only(bottom: 2, right: 2),
+                      child: IconButton(
+                        icon: Icon(
+                          Icons.search_rounded,
+                          color: ColorWhite,
+                          size: 34,
+                        ),
+                        onPressed: () {
+                          ButtonsController.onSearchPressed(context, this.widget.chosenCategory, this.widget.library);
+                        },
+                      ),
+                    )
+                  ],
+                ),
               ],
             ),
           ),
