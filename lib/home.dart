@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:privateflix/Beans/CategoryBeans.dart';
@@ -84,191 +85,194 @@ class _HomePageState extends State<HomePage> {
           ),
           backgroundColor: ColorBlackBlue,
         ),
-        body: Container(
-          height: mqd.size.height,
-          width: mqd.size.width,
-          color: ColorBackgroundBlue,
-          padding: EdgeInsets.fromLTRB(18, 14, 18, 14),
-          child: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Container(
-                  margin: EdgeInsets.only(top: 2, bottom: 14),
-                  child: Row(
-                    children: [
-                      AutoSizeText(
-                        "Goditi qualcosa di nuovo",
-                        style: TextStyle(
-                            fontSize: 24,
-                            color: ColorSoftBlue,
-                            fontWeight: FontWeight.w600
+        body: WillPopScope(
+          onWillPop: onWillPop,
+          child: Container(
+            height: mqd.size.height,
+            width: mqd.size.width,
+            color: ColorBackgroundBlue,
+            padding: EdgeInsets.fromLTRB(18, 14, 18, 14),
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    margin: EdgeInsets.only(top: 2, bottom: 14),
+                    child: Row(
+                      children: [
+                        AutoSizeText(
+                          "Goditi qualcosa di nuovo",
+                          style: TextStyle(
+                              fontSize: 24,
+                              color: ColorSoftBlue,
+                              fontWeight: FontWeight.w600
+                          ),
                         ),
-                      ),
-                      Expanded(child: Container()),
-                      Icon(Icons.star, size: 26, color: ColorSoftBlue,),
-                    ],
+                        Expanded(child: Container()),
+                        Icon(Icons.star, size: 26, color: ColorSoftBlue,),
+                      ],
+                    ),
                   ),
-                ),
-                /*
-                *     Section: suggested films
-                * */
-                AutoSizeText(
-                  "Film consigliati",
-                  style: TextStyle(
-                    fontSize: 20,
-                    color: ColorWhite,
-                    fontWeight: FontWeight.w600
-                  ),
-                ),
-                Container(
-                  margin: EdgeInsets.only(top: 8, bottom: 14),
-                  height: 187,
-                  child: ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    itemCount: randomFilms.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      return Container(
-                        width: 128,
-                        height: 187,
-                        margin: (index != randomFilms.length-1) ? EdgeInsets.only(right: 12) : EdgeInsets.all(0),
-                        color: ColorBackgroundBlue,
-                          child: FlatButton(
-                              onPressed: () {
-                                ButtonsController.onPreviewPressed(context, randomFilms[index], this.widget.library);
-                              },
-                              padding: EdgeInsets.zero,
-                              child: Container(
-                                width: 128,
-                                height: 187,
-                                child: CachedNetworkImage(
-                                  imageUrl: randomFilms[index].imagelink,
-                                  progressIndicatorBuilder: (context, url, downloadProgress) =>
-                                      CircularProgressIndicator(value: downloadProgress.progress),
-                                  errorWidget: (context, url, error) => Icon(Icons.error),
-                                ),
-                              ),
-                          )
-                      );
-                    }
-                  ),
-                ),
-                /*
-                *     Section: suggested tv series
-                * */
-                AutoSizeText(
-                  "Serie TV consigliate",
-                  style: TextStyle(
+                  /*
+                  *     Section: suggested films
+                  * */
+                  AutoSizeText(
+                    "Film consigliati",
+                    style: TextStyle(
                       fontSize: 20,
                       color: ColorWhite,
                       fontWeight: FontWeight.w600
+                    ),
                   ),
-                ),
-                Container(
-                  margin: EdgeInsets.only(top: 8, bottom: 12),
-                  height: 187,
-                  child: ListView.builder(
+                  Container(
+                    margin: EdgeInsets.only(top: 8, bottom: 14),
+                    height: 187,
+                    child: ListView.builder(
                       scrollDirection: Axis.horizontal,
-                      itemCount: randomTVSeries.length,
+                      itemCount: randomFilms.length,
                       itemBuilder: (BuildContext context, int index) {
                         return Container(
-                            width: 128,
-                            height: 187,
-                            margin: (index != randomTVSeries.length-1) ? EdgeInsets.only(right: 12) : EdgeInsets.all(0),
-                            color: ColorBackgroundBlue,
+                          width: 128,
+                          height: 187,
+                          margin: (index != randomFilms.length-1) ? EdgeInsets.only(right: 12) : EdgeInsets.all(0),
+                          color: ColorBackgroundBlue,
                             child: FlatButton(
-                              onPressed: () {
-                                ButtonsController.onPreviewPressed(context, randomTVSeries[index], this.widget.library);
-                              },
-                              padding: EdgeInsets.zero,
-                              child: Container(
-                                width: 128,
-                                height: 187,
-                                child: CachedNetworkImage(
-                                  imageUrl: randomTVSeries[index].imagelink,
-                                  progressIndicatorBuilder: (context, url, downloadProgress) =>
-                                      CircularProgressIndicator(value: downloadProgress.progress),
-                                  errorWidget: (context, url, error) => Icon(Icons.error),
+                                onPressed: () {
+                                  ButtonsController.onPreviewPressed(context, randomFilms[index], this.widget.library);
+                                },
+                                padding: EdgeInsets.zero,
+                                child: Container(
+                                  width: 128,
+                                  height: 187,
+                                  child: CachedNetworkImage(
+                                    imageUrl: randomFilms[index].imagelink,
+                                    progressIndicatorBuilder: (context, url, downloadProgress) =>
+                                        CircularProgressIndicator(value: downloadProgress.progress),
+                                    errorWidget: (context, url, error) => Icon(Icons.error),
+                                  ),
                                 ),
-                              ),
                             )
                         );
                       }
+                    ),
                   ),
-                ),
-                /*
-                *     RANDOM CATEGORIES
-                * */
-                Divider(
-                  color: ColorSoftGray,
-                  height: 24,
-                  thickness: 1,
-                ),
-                Container(
-                  margin: EdgeInsets.only(top: 4, bottom: 14),
-                  child: Row(
-                    children: [
-                      AutoSizeText(
-                        "Categorie interessanti",
-                        style: TextStyle(
-                            fontSize: 24,
-                            color: ColorSoftBlue,
-                            fontWeight: FontWeight.w600
-                        ),
-                      ),
-                      Expanded(child: Container()),
-                      Icon(Icons.local_fire_department, size: 26, color: ColorSoftBlue,),
-                    ],
+                  /*
+                  *     Section: suggested tv series
+                  * */
+                  AutoSizeText(
+                    "Serie TV consigliate",
+                    style: TextStyle(
+                        fontSize: 20,
+                        color: ColorWhite,
+                        fontWeight: FontWeight.w600
+                    ),
                   ),
-                ),
-                for (int category_index = 0; category_index < numberOfRandomCategories; category_index++)
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      AutoSizeText(
-                        Definitions.getPresentationSentence(randomCategories[category_index].name),
-                        style: TextStyle(
-                            fontSize: 20,
-                            color: ColorWhite,
-                            fontWeight: FontWeight.w600
-                        ),
-                      ),
-                      Container(
-                        margin: EdgeInsets.only(top: 8, bottom: 12),
-                        height: 187,
-                        child: ListView.builder(
-                            scrollDirection: Axis.horizontal,
-                            itemCount: (numberOfRandomPreviews > randomCategories[category_index].contents.length) ?
-                                            randomCategories[category_index].contents.length : numberOfRandomPreviews,
-                            itemBuilder: (BuildContext context, int film_index) {
-                              return Container(
+                  Container(
+                    margin: EdgeInsets.only(top: 8, bottom: 12),
+                    height: 187,
+                    child: ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        itemCount: randomTVSeries.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          return Container(
+                              width: 128,
+                              height: 187,
+                              margin: (index != randomTVSeries.length-1) ? EdgeInsets.only(right: 12) : EdgeInsets.all(0),
+                              color: ColorBackgroundBlue,
+                              child: FlatButton(
+                                onPressed: () {
+                                  ButtonsController.onPreviewPressed(context, randomTVSeries[index], this.widget.library);
+                                },
+                                padding: EdgeInsets.zero,
+                                child: Container(
                                   width: 128,
                                   height: 187,
-                                  margin: (film_index != numberOfRandomPreviews-1) ? EdgeInsets.only(right: 12) : EdgeInsets.all(0),
-                                  color: ColorBackgroundBlue,
-                                  child: FlatButton(
-                                    onPressed: () {
-                                      ButtonsController.onPreviewPressed(context, randomCategories[category_index].contents[film_index], this.widget.library);
-                                    },
-                                    padding: EdgeInsets.zero,
-                                    child: Container(
-                                      width: 128,
-                                      height: 187,
-                                      child: CachedNetworkImage(
-                                        imageUrl: randomCategories[category_index].contents[film_index].imagelink,
-                                        progressIndicatorBuilder: (context, url, downloadProgress) =>
-                                            CircularProgressIndicator(value: downloadProgress.progress),
-                                        errorWidget: (context, url, error) => Icon(Icons.error),
-                                      ),
-                                    ),
-                                  )
-                              );
-                            }
-                        ),
-                      ),
-                    ],
+                                  child: CachedNetworkImage(
+                                    imageUrl: randomTVSeries[index].imagelink,
+                                    progressIndicatorBuilder: (context, url, downloadProgress) =>
+                                        CircularProgressIndicator(value: downloadProgress.progress),
+                                    errorWidget: (context, url, error) => Icon(Icons.error),
+                                  ),
+                                ),
+                              )
+                          );
+                        }
+                    ),
                   ),
-              ],
+                  /*
+                  *     RANDOM CATEGORIES
+                  * */
+                  Divider(
+                    color: ColorSoftGray,
+                    height: 24,
+                    thickness: 1,
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(top: 4, bottom: 14),
+                    child: Row(
+                      children: [
+                        AutoSizeText(
+                          "Categorie interessanti",
+                          style: TextStyle(
+                              fontSize: 24,
+                              color: ColorSoftBlue,
+                              fontWeight: FontWeight.w600
+                          ),
+                        ),
+                        Expanded(child: Container()),
+                        Icon(Icons.local_fire_department, size: 26, color: ColorSoftBlue,),
+                      ],
+                    ),
+                  ),
+                  for (int category_index = 0; category_index < numberOfRandomCategories; category_index++)
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        AutoSizeText(
+                          Definitions.getPresentationSentence(randomCategories[category_index].name),
+                          style: TextStyle(
+                              fontSize: 20,
+                              color: ColorWhite,
+                              fontWeight: FontWeight.w600
+                          ),
+                        ),
+                        Container(
+                          margin: EdgeInsets.only(top: 8, bottom: 12),
+                          height: 187,
+                          child: ListView.builder(
+                              scrollDirection: Axis.horizontal,
+                              itemCount: (numberOfRandomPreviews > randomCategories[category_index].contents.length) ?
+                                              randomCategories[category_index].contents.length : numberOfRandomPreviews,
+                              itemBuilder: (BuildContext context, int film_index) {
+                                return Container(
+                                    width: 128,
+                                    height: 187,
+                                    margin: (film_index != numberOfRandomPreviews-1) ? EdgeInsets.only(right: 12) : EdgeInsets.all(0),
+                                    color: ColorBackgroundBlue,
+                                    child: FlatButton(
+                                      onPressed: () {
+                                        ButtonsController.onPreviewPressed(context, randomCategories[category_index].contents[film_index], this.widget.library);
+                                      },
+                                      padding: EdgeInsets.zero,
+                                      child: Container(
+                                        width: 128,
+                                        height: 187,
+                                        child: CachedNetworkImage(
+                                          imageUrl: randomCategories[category_index].contents[film_index].imagelink,
+                                          progressIndicatorBuilder: (context, url, downloadProgress) =>
+                                              CircularProgressIndicator(value: downloadProgress.progress),
+                                          errorWidget: (context, url, error) => Icon(Icons.error),
+                                        ),
+                                      ),
+                                    )
+                                );
+                              }
+                          ),
+                        ),
+                      ],
+                    ),
+                ],
+              ),
             ),
           ),
         ),
@@ -304,4 +308,18 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
+
+  DateTime currentBackPressTime;
+
+  Future<bool> onWillPop() {
+    DateTime now = DateTime.now();
+    if (currentBackPressTime == null ||
+        now.difference(currentBackPressTime) > Duration(seconds: 2)) {
+      currentBackPressTime = now;
+      Fluttertoast.showToast(msg: "Premi di nuovo per uscire dall'applicazione");
+      return Future.value(false);
+    }
+    return Future.value(true);
+  }
+
 }

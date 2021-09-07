@@ -62,63 +62,66 @@ class _FilmCategoriesState extends State<FilmCategories> {
           ),
           backgroundColor: ColorBlackBlue,
         ),
-        body: Container(
-          height: mqd.size.height,
-          width: mqd.size.width,
-          color: ColorBackgroundBlue,
-          padding: EdgeInsets.fromLTRB(14, 10, 14, 10),
-          child: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                for (Category category in this.widget.library.films)
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      ListItem(
-                        title: category.name,
-                        category: category,
-                        rootbean: this.widget.library,
-                        onTap: () {
-                          ButtonsController.onSameCategoryPressed(context, category, this.widget.library);
-                        },
-                      ),
-                      Container(
-                        margin: EdgeInsets.only(top: 8, bottom: 12),
-                        height: 187,
-                        child: ListView.builder(
-                            scrollDirection: Axis.horizontal,
-                            itemCount: (10 > category.contents.length) ?
-                            category.contents.length : 10,
-                            itemBuilder: (BuildContext context, int film_index) {
-                              return Container(
-                                  width: 128,
-                                  height: 187,
-                                  margin: (film_index != 10-1) ? EdgeInsets.only(right: 12) : EdgeInsets.all(0),
-                                  color: ColorBackgroundBlue,
-                                  child: FlatButton(
-                                    onPressed: () {
-                                      ButtonsController.onPreviewPressed(context, category.contents[film_index], this.widget.library);
-                                    },
-                                    padding: EdgeInsets.zero,
-                                    child: Container(
-                                      width: 128,
-                                      height: 187,
-                                      child: CachedNetworkImage(
-                                        imageUrl: category.contents[film_index].imagelink,
-                                        progressIndicatorBuilder: (context, url, downloadProgress) =>
-                                            CircularProgressIndicator(value: downloadProgress.progress),
-                                        errorWidget: (context, url, error) => Icon(Icons.error),
-                                      ),
-                                    ),
-                                  )
-                              );
-                            }
+        body: WillPopScope(
+          onWillPop: pressedBack,
+          child: Container(
+            height: mqd.size.height,
+            width: mqd.size.width,
+            color: ColorBackgroundBlue,
+            padding: EdgeInsets.fromLTRB(14, 10, 14, 10),
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  for (Category category in this.widget.library.films)
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        ListItem(
+                          title: category.name,
+                          category: category,
+                          rootbean: this.widget.library,
+                          onTap: () {
+                            ButtonsController.onSameCategoryPressed(context, category, this.widget.library);
+                          },
                         ),
-                      ),
-                    ],
-                  ),
-              ]
+                        Container(
+                          margin: EdgeInsets.only(top: 8, bottom: 12),
+                          height: 187,
+                          child: ListView.builder(
+                              scrollDirection: Axis.horizontal,
+                              itemCount: (10 > category.contents.length) ?
+                              category.contents.length : 10,
+                              itemBuilder: (BuildContext context, int film_index) {
+                                return Container(
+                                    width: 128,
+                                    height: 187,
+                                    margin: (film_index != 10-1) ? EdgeInsets.only(right: 12) : EdgeInsets.all(0),
+                                    color: ColorBackgroundBlue,
+                                    child: FlatButton(
+                                      onPressed: () {
+                                        ButtonsController.onPreviewPressed(context, category.contents[film_index], this.widget.library);
+                                      },
+                                      padding: EdgeInsets.zero,
+                                      child: Container(
+                                        width: 128,
+                                        height: 187,
+                                        child: CachedNetworkImage(
+                                          imageUrl: category.contents[film_index].imagelink,
+                                          progressIndicatorBuilder: (context, url, downloadProgress) =>
+                                              CircularProgressIndicator(value: downloadProgress.progress),
+                                          errorWidget: (context, url, error) => Icon(Icons.error),
+                                        ),
+                                      ),
+                                    )
+                                );
+                              }
+                          ),
+                        ),
+                      ],
+                    ),
+                ]
+              ),
             ),
           ),
         ),
@@ -157,6 +160,11 @@ class _FilmCategoriesState extends State<FilmCategories> {
         ),
       ),
     );
+  }
+
+  Future<bool> pressedBack() {
+    ButtonsController.onNavButtonPressed(context, this.widget.library, 0, 1);
+    return Future.value(true);
   }
 
 }
