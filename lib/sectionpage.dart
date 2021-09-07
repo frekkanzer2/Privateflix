@@ -74,55 +74,57 @@ class _ChosenSectionState extends State<ChosenSection> {
           height: mqd.size.height,
           width: mqd.size.width,
           color: ColorBackgroundBlue,
-          padding: EdgeInsets.fromLTRB(14, 12, 14, 12),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                margin: EdgeInsets.only(left: mqd.size.width * 1 / 100, bottom: mqd.size.height * 1 / 100),
-                child: AutoSizeText(
-                  this.widget.chosenCategory.name,
-                  style: TextStyle(
-                      fontSize: 20,
-                      color: ColorWhite,
-                      fontWeight: FontWeight.w600
+          padding: EdgeInsets.fromLTRB(14, 10, 14, 10),
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  margin: EdgeInsets.only(left: mqd.size.width * 1 / 100, bottom: 8),
+                  child: AutoSizeText(
+                    this.widget.chosenCategory.name,
+                    style: TextStyle(
+                        fontSize: 20,
+                        color: ColorWhite,
+                        fontWeight: FontWeight.w600
+                    ),
                   ),
                 ),
-              ),
-              Container(
-                width: mqd.size.width,
-                height: mqd.size.height * 71.2 / 100,
-                child: GridView.count(
-                  crossAxisCount: 3,
-                  childAspectRatio: 128/187,
-                  crossAxisSpacing: 6,
-                  mainAxisSpacing: 6,
-                  children: this.widget.chosenCategory.contents.map((value) {
-                    return Container(
-                        width: mqd.size.width * 30 / 100,
-                        height: mqd.size.width * 30 / 100 * (187/128),
-                        color: ColorBackgroundBlue,
-                        child: FlatButton(
-                          onPressed: () {
-                            ButtonsController.onPreviewPressed(context, value, this.widget.library);
-                          },
-                          padding: EdgeInsets.zero,
-                          child: Container(
-                            width: mqd.size.width * 30 / 100,
-                            height: mqd.size.width * 30 / 100 * (187/128),
-                            child: CachedNetworkImage(
-                              imageUrl: value.imagelink,
-                              progressIndicatorBuilder: (context, url, downloadProgress) =>
-                                  CircularProgressIndicator(value: downloadProgress.progress),
-                              errorWidget: (context, url, error) => Icon(Icons.error),
+                Container(
+                  width: mqd.size.width,
+                  height: mqd.size.height,
+                  child: GridView.count(
+                    crossAxisCount: 3,
+                    childAspectRatio: 128/187,
+                    crossAxisSpacing: 6,
+                    mainAxisSpacing: 6,
+                    children: this.widget.chosenCategory.contents.map((value) {
+                      return Container(
+                          width: mqd.size.width * 30 / 100,
+                          height: mqd.size.width * 30 / 100 * (187/128),
+                          color: ColorBackgroundBlue,
+                          child: FlatButton(
+                            onPressed: () {
+                              ButtonsController.onPreviewPressed(context, value, this.widget.library);
+                            },
+                            padding: EdgeInsets.zero,
+                            child: Container(
+                              width: mqd.size.width * 30 / 100,
+                              height: mqd.size.width * 30 / 100 * (187/128),
+                              child: CachedNetworkImage(
+                                imageUrl: value.imagelink,
+                                progressIndicatorBuilder: (context, url, downloadProgress) =>
+                                    CircularProgressIndicator(value: downloadProgress.progress),
+                                errorWidget: (context, url, error) => Icon(Icons.error),
+                              ),
                             ),
-                          ),
-                        )
-                    );
-                  }).toList(),
+                          )
+                      );
+                    }).toList(),
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
         bottomNavigationBar: Theme(
