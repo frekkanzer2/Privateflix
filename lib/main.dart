@@ -116,18 +116,19 @@ class _PrivateFlixHomeState extends State<PrivateFlixHome> {
         ),
         backgroundColor: ColorBlackBlue,
       ),
-      body: Stack(
-        children: [
-          Container(
-            width: mqd.size.width,
-            height: mqd.size.height,
-            padding: EdgeInsets.only(left: mqd.size.width * 6/100, right: mqd.size.width * 10/100, bottom: mqd.size.height * 2 / 100),
-            child: SingleChildScrollView(
+      body: Container(
+        padding: EdgeInsets.fromLTRB(12, 24, 24, 0),
+        color: ColorBackgroundBlue,
+        height: mqd.size.height - 140, // sub toolbar height
+        child: SingleChildScrollView(
+          child:
+            Container(
+              height: mqd.size.height - (mqd.size.height-140)*46/100,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Container(
-                    margin: EdgeInsets.only(top: mqd.size.height*12/100, bottom: mqd.size.height*2.5/100),
+                    margin: EdgeInsets.only(top: (mqd.size.height-140)*12/100, bottom: (mqd.size.height-140)*5/100),
                     child: AutoSizeText(
                       "Benvenuto!",
                       maxLines: 1,
@@ -139,13 +140,13 @@ class _PrivateFlixHomeState extends State<PrivateFlixHome> {
                     ),
                   ),
                   Container(
-                    margin: EdgeInsets.only(bottom: mqd.size.height*4/100),
+                    margin: EdgeInsets.only(bottom: (mqd.size.height-140)*5/100),
                     child: AutoSizeText(
                       "Prima di inserire un codice di accesso, controlla di essere stato aggiunto come \"collaboratore\" al canale YouTube contenente i materiali.",
-                      maxLines: 3,
+                      maxLines: 4,
                       minFontSize: 16,
                       style: TextStyle(
-                        fontSize: 26,
+                        fontSize: 20,
                         color: ColorWhite,
                       ),
                     ),
@@ -193,6 +194,10 @@ class _PrivateFlixHomeState extends State<PrivateFlixHome> {
                       ),
                     ),
                   ),
+                  Expanded(
+                    flex: 1,
+                    child: Container(),
+                  ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
@@ -226,25 +231,11 @@ class _PrivateFlixHomeState extends State<PrivateFlixHome> {
                         ),
                       )
                     ],
-                  )
+                  ),
                 ],
               ),
             ),
-            color: ColorBackgroundBlue,
-          ),
-          Container(
-            margin: EdgeInsets.only(top: mqd.size.height * 71.5 / 100, left: mqd.size.width * 6.2 / 100),
-            child: AutoSizeText(
-              "© Francesco Abate · www.fabate.altervista.org",
-              minFontSize: 12,
-              maxLines: 1,
-              style: TextStyle(
-                color: ColorWhite,
-                fontSize: 16,
-              ),
-            ),
-          )
-        ],
+        ),
       ),
     );
   }
