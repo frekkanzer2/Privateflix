@@ -28,7 +28,7 @@ class _HomePageState extends State<HomePage> {
   List<Video> randomFilms = new List<Video>();
   List<Video> randomTVSeries = new List<Video>();
   List<Category> randomCategories = new List<Category>();
-  int numberOfRandomPreviews = 5;
+  int numberOfRandomPreviews = 10;
   int numberOfRandomCategories = 2;
 
   // ignore: must_call_super

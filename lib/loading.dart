@@ -51,13 +51,15 @@ class LoadingContents_State extends State<LoadingContents> {
         color: ColorSoftBlue,
         child: Column(
           children: [
-            Text(
+            AutoSizeText(
               "PRIVATEFLIX",
+              maxLines: 1,
+              minFontSize: 12,
               style: GoogleFonts.bigShouldersDisplay(
                 textStyle: TextStyle(
                   color: ColorWhite,
                 ),
-                fontSize: 72,
+                fontSize: 128,
                 fontWeight: FontWeight.w700,
                 shadows: [
                   Shadow(
