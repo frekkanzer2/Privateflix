@@ -99,145 +99,177 @@ class _PrivateFlixHomeState extends State<PrivateFlixHome> {
     final MediaQueryData mqd = MediaQuery.of(context);
 
     return Scaffold(
-      appBar: AppBar(
-        toolbarHeight: 140,
-        title: Container(
-          margin: EdgeInsets.only(top: 28, left: mqd.size.width * 2.2/100),
-          child: Text(
-            "PRIVATEFLIX",
-            style: GoogleFonts.bigShouldersDisplay(
-              textStyle: TextStyle(
-                color: ColorSoftBlue,
-              ),
-              fontSize: 56,
-              fontWeight: FontWeight.w700,
-            ),
-          ),
-        ),
-        backgroundColor: ColorBlackBlue,
-      ),
-      body: Container(
-        padding: EdgeInsets.fromLTRB(12, 24, 24, 0),
-        color: ColorBackgroundBlue,
-        height: mqd.size.height - 140, // sub toolbar height
-        child: SingleChildScrollView(
-          child:
-            Container(
-              height: mqd.size.height - (mqd.size.height-140)*46/100,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Container(
-                    margin: EdgeInsets.only(top: (mqd.size.height-140)*12/100, bottom: (mqd.size.height-140)*5/100),
-                    child: AutoSizeText(
-                      "Benvenuto!",
-                      maxLines: 1,
-                      minFontSize: 16,
-                      style: TextStyle(
-                        fontSize: 32,
-                        color: ColorWhite,
-                      ),
-                    ),
-                  ),
-                  Container(
-                    margin: EdgeInsets.only(bottom: (mqd.size.height-140)*5/100),
-                    child: AutoSizeText(
-                      "Prima di inserire un codice di accesso, controlla di essere stato aggiunto come \"collaboratore\" al canale YouTube contenente i materiali.",
-                      maxLines: 4,
-                      minFontSize: 16,
-                      style: TextStyle(
-                        fontSize: 20,
-                        color: ColorWhite,
-                      ),
-                    ),
-                  ),
-                  Container(
-                    margin: EdgeInsets.only(bottom: mqd.size.height * 10 / 100),
-                    child: TextFormField(
-                      controller: codeController,
-                      cursorColor: Theme.of(context).cursorColor,
-                      maxLength: 14,
-                      style: TextStyle(
-                        fontSize: 30,
-                          color: ColorWhite,
-                      ),
-                      decoration: InputDecoration(
-                        contentPadding: EdgeInsets.fromLTRB(5, 0, 0, 0),
-                        hintText: "XXXX-XXXX-XXXX",
-                        errorText: errorMessage,
-                        hintStyle: TextStyle(
-                          fontSize: 30,
-                          color: ColorSoftGray
+      body: SingleChildScrollView(
+        child: Container(
+          height: mqd.size.height,
+          child: Column(
+              children: [
+                Expanded(
+                  flex: 1,
+                  child: Container(
+                    padding: EdgeInsets.only(top: 28, left: 16),
+                    width: mqd.size.width,
+                    child: Column(
+                      children: [
+                        Expanded(
+                          child: Container(),
+                          flex: 1,
                         ),
-                        helperStyle: TextStyle(
-                            color: ColorSoftGray
-                        ),
-                        icon: Icon(
-                          Icons.vpn_key_rounded,
-                          color: ColorSoftGray,
-                        ),
-                        labelStyle: TextStyle(
-                          color: ColorSoftGray,
-                        ),
-                        enabledBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(color: ColorSoftBlue),
-                        ),
-                        focusedBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(color: ColorSoftBlue),
-                        ),
-                        border: UnderlineInputBorder(
-                          borderSide: BorderSide(color: ColorSoftBlue),
-                        ),
-                        errorBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(color: ColorSoftBlue),
-                        ),
-                      ),
-                    ),
-                  ),
-                  Expanded(
-                    flex: 1,
-                    child: Container(),
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      DecoratedBox(
-                        decoration:
-                        ShapeDecoration(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(6),
-                            ),
-                            color: ColorSoftBlue
-                        ),
-                        child: Theme(
-                          data: Theme.of(context).copyWith(
-                              buttonTheme: ButtonTheme.of(context).copyWith(
-                                  materialTapTargetSize: MaterialTapTargetSize.shrinkWrap)),
-                          child: OutlineButton(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(6),
-                            ),
-                            child: Text(
-                              "Registra",
-                              style: TextStyle(
-                                color: ColorWhite,
-                                fontSize: 16,
+                        Row(
+                          children: [
+                            Text(
+                              "PRIVATEFLIX",
+                              style: GoogleFonts.bigShouldersDisplay(
+                                textStyle: TextStyle(
+                                  color: ColorSoftBlue,
+                                ),
+                                fontSize: 56,
+                                fontWeight: FontWeight.w700,
                               ),
                             ),
-                            onPressed: () {
-                              onRegisterPressed(context, codeController.text);
-                            },
-                          ),
+                            Expanded(child: Container(), flex: 1),
+                          ]
                         ),
-                      )
-                    ],
+                        Expanded(
+                          child: Container(),
+                          flex: 1,
+                        ),
+                      ],
+                    ),
+                    color: ColorBlackBlue,
                   ),
-                ],
-              ),
-            ),
+                ),
+                Expanded(
+                  flex: 3,
+                  child: Container(
+                    padding: EdgeInsets.fromLTRB(16, 0, 24, 0),
+                    color: ColorBackgroundBlue,
+                    child: Column(
+                      children: [
+                        Expanded(child: Container(), flex: 1),
+                        Expanded(
+                          child: Container(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Container(
+                                  margin: EdgeInsets.only(bottom: 8),
+                                  child: AutoSizeText(
+                                    "Benvenuto!",
+                                    maxLines: 1,
+                                    minFontSize: 16,
+                                    style: TextStyle(
+                                      fontSize: 32,
+                                      color: ColorWhite,
+                                    ),
+                                  ),
+                                ),
+                                Container(
+                                  margin: EdgeInsets.only(bottom: 12),
+                                  child: AutoSizeText(
+                                    "Prima di inserire un codice di accesso, controlla di essere stato aggiunto come \"collaboratore\" al canale YouTube contenente i materiali.",
+                                    maxLines: 4,
+                                    minFontSize: 16,
+                                    style: TextStyle(
+                                      fontSize: 20,
+                                      color: ColorWhite,
+                                    ),
+                                  ),
+                                ),
+                                Container(
+                                  margin: EdgeInsets.only(bottom: 12),
+                                  child: TextFormField(
+                                    controller: codeController,
+                                    cursorColor: Theme.of(context).cursorColor,
+                                    maxLength: 14,
+                                    style: TextStyle(
+                                      fontSize: 30,
+                                      color: ColorWhite,
+                                    ),
+                                    decoration: InputDecoration(
+                                      contentPadding: EdgeInsets.fromLTRB(5, 0, 0, 0),
+                                      hintText: "XXXX-XXXX-XXXX",
+                                      errorText: errorMessage,
+                                      hintStyle: TextStyle(
+                                          fontSize: 30,
+                                          color: ColorSoftGray
+                                      ),
+                                      helperStyle: TextStyle(
+                                          color: ColorSoftGray
+                                      ),
+                                      icon: Icon(
+                                        Icons.vpn_key_rounded,
+                                        color: ColorSoftGray,
+                                      ),
+                                      labelStyle: TextStyle(
+                                        color: ColorSoftGray,
+                                      ),
+                                      enabledBorder: UnderlineInputBorder(
+                                        borderSide: BorderSide(color: ColorSoftBlue),
+                                      ),
+                                      focusedBorder: UnderlineInputBorder(
+                                        borderSide: BorderSide(color: ColorSoftBlue),
+                                      ),
+                                      border: UnderlineInputBorder(
+                                        borderSide: BorderSide(color: ColorSoftBlue),
+                                      ),
+                                      errorBorder: UnderlineInputBorder(
+                                        borderSide: BorderSide(color: ColorSoftBlue),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: [
+                                    DecoratedBox(
+                                      decoration:
+                                      ShapeDecoration(
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.circular(6),
+                                          ),
+                                          color: ColorSoftBlue
+                                      ),
+                                      child: Theme(
+                                        data: Theme.of(context).copyWith(
+                                            buttonTheme: ButtonTheme.of(context).copyWith(
+                                                materialTapTargetSize: MaterialTapTargetSize.shrinkWrap)),
+                                        child: OutlineButton(
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.circular(6),
+                                          ),
+                                          child: Text(
+                                            "Registra",
+                                            style: TextStyle(
+                                              color: ColorWhite,
+                                              fontSize: 16,
+                                            ),
+                                          ),
+                                          onPressed: () {
+                                            onRegisterPressed(context, codeController.text);
+                                          },
+                                        ),
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                          flex: 6,
+                        ),
+                        Expanded(child: Container(), flex: 1),
+                      ]
+                    ),
+                  ),
+                ),
+              ],
+          ),
         ),
-      ),
+      )
     );
+
   }
 
   void onRegisterPressed(BuildContext context, String code) {
