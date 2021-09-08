@@ -82,97 +82,94 @@ class _SearchPageState extends State<SearchPage> {
           width: mqd.size.width,
           color: ColorBackgroundBlue,
           padding: EdgeInsets.fromLTRB(14, 12, 14, 12),
-          child: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Container(
-                  margin: EdgeInsets.only(left: mqd.size.width * 1 / 100, bottom: 8),
-                  child: AutoSizeText(
-                    "Ricerca nella sezione " + this.widget.chosenCategory.name,
-                    style: TextStyle(
-                        fontSize: 20,
-                        color: ColorWhite,
-                        fontWeight: FontWeight.w600
-                    ),
-                  ),
-                ),
-                Container(
-                  height: 34,
-                  margin: EdgeInsets.only(bottom: 18),
-                  child: TextFormField(
-                    onChanged: (text) {
-                      searchAndFilter(text);
-                    },
-                    controller: searchController,
-                    cursorColor: Theme.of(context).cursorColor,
-                    style: TextStyle(
-                      fontSize: 18,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                margin: EdgeInsets.only(left: mqd.size.width * 1 / 100, bottom: 8),
+                child: AutoSizeText(
+                  "Ricerca nella sezione " + this.widget.chosenCategory.name,
+                  style: TextStyle(
+                      fontSize: 20,
                       color: ColorWhite,
+                      fontWeight: FontWeight.w600
+                  ),
+                ),
+              ),
+              Container(
+                height: 34,
+                margin: EdgeInsets.only(bottom: 18),
+                child: TextFormField(
+                  onChanged: (text) {
+                    searchAndFilter(text);
+                  },
+                  controller: searchController,
+                  cursorColor: Theme.of(context).cursorColor,
+                  style: TextStyle(
+                    fontSize: 18,
+                    color: ColorWhite,
+                  ),
+                  decoration: InputDecoration(
+                    contentPadding: EdgeInsets.fromLTRB(5, 0, 5, 10),
+                    hintText: "Cerca un titolo",
+                    hintStyle: TextStyle(
+                        fontSize: 18,
+                        color: ColorSoftGray
                     ),
-                    decoration: InputDecoration(
-                      contentPadding: EdgeInsets.fromLTRB(5, 0, 5, 10),
-                      hintText: "Cerca un titolo",
-                      hintStyle: TextStyle(
-                          fontSize: 18,
-                          color: ColorSoftGray
-                      ),
-                      helperStyle: TextStyle(
-                          color: ColorSoftGray
-                      ),
-                      labelStyle: TextStyle(
-                        color: ColorSoftGray,
-                      ),
-                      enabledBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color: ColorSoftBlue),
-                      ),
-                      focusedBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color: ColorSoftBlue),
-                      ),
-                      border: UnderlineInputBorder(
-                        borderSide: BorderSide(color: ColorSoftBlue),
-                      ),
-                      errorBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color: ColorSoftBlue),
-                      ),
+                    helperStyle: TextStyle(
+                        color: ColorSoftGray
+                    ),
+                    labelStyle: TextStyle(
+                      color: ColorSoftGray,
+                    ),
+                    enabledBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: ColorSoftBlue),
+                    ),
+                    focusedBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: ColorSoftBlue),
+                    ),
+                    border: UnderlineInputBorder(
+                      borderSide: BorderSide(color: ColorSoftBlue),
+                    ),
+                    errorBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: ColorSoftBlue),
                     ),
                   ),
                 ),
-                Container(
-                  width: mqd.size.width,
-                  height: mqd.size.height * 71 / 100,
-                  child: GridView.count(
-                    crossAxisCount: 3,
-                    childAspectRatio: 128/187,
-                    crossAxisSpacing: 6,
-                    mainAxisSpacing: 6,
-                    children: filteredList.map((value) {
-                      return Container(
-                          width: mqd.size.width * 30 / 100,
-                          height: mqd.size.width * 30 / 100 * (187/128),
-                          color: ColorBackgroundBlue,
-                          child: FlatButton(
-                            onPressed: () {
-                              ButtonsController.onPreviewPressed(context, value, this.widget.library);
-                            },
-                            padding: EdgeInsets.zero,
-                            child: Container(
-                              width: mqd.size.width * 30 / 100,
-                              height: mqd.size.width * 30 / 100 * (187/128),
-                              child: CachedNetworkImage(
-                                imageUrl: value.imagelink,
-                                progressIndicatorBuilder: (context, url, downloadProgress) =>
-                                    CircularProgressIndicator(value: downloadProgress.progress),
-                                errorWidget: (context, url, error) => Icon(Icons.error),
-                              ),
+              ),
+              Expanded(
+                child: GridView.count(
+                  crossAxisCount: 3,
+                  childAspectRatio: 128/187,
+                  crossAxisSpacing: 6,
+                  mainAxisSpacing: 6,
+                  children: filteredList.map((value) {
+                    return Container(
+                        width: mqd.size.width * 30 / 100,
+                        height: mqd.size.width * 30 / 100 * (187/128),
+                        color: ColorBackgroundBlue,
+                        child: FlatButton(
+                          onPressed: () {
+                            ButtonsController.onPreviewPressed(context, value, this.widget.library);
+                          },
+                          padding: EdgeInsets.zero,
+                          child: Container(
+                            width: mqd.size.width * 30 / 100,
+                            height: mqd.size.width * 30 / 100 * (187/128),
+                            child: CachedNetworkImage(
+                              imageUrl: value.imagelink,
+                              progressIndicatorBuilder: (context, url, downloadProgress) =>
+                                  CircularProgressIndicator(value: downloadProgress.progress),
+                              errorWidget: (context, url, error) => Icon(Icons.error),
                             ),
-                          )
-                      );
-                    }).toList(),
-                  ),
+                          ),
+                        )
+                    );
+                  }).toList(),
                 ),
-              ],
-            ),
+                flex: 1,
+              ),
+            ],
           ),
         ),
       ),
