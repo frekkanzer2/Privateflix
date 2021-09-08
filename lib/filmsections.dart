@@ -131,6 +131,7 @@ class _FilmCategoriesState extends State<FilmCategories> {
               canvasColor: ColorBlackBlue,
               // sets the active color of the `BottomNavigationBar` if `Brightness` is light
               primaryColor: ColorSoftBlue,
+              unselectedWidgetColor: ColorWhite,
               textTheme: Theme
                   .of(context)
                   .textTheme

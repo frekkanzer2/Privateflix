@@ -282,6 +282,7 @@ class _HomePageState extends State<HomePage> {
             canvasColor: ColorBlackBlue,
             // sets the active color of the `BottomNavigationBar` if `Brightness` is light
             primaryColor: ColorSoftBlue,
+            unselectedWidgetColor: ColorWhite,
             textTheme: Theme.of(context).textTheme.copyWith(
               caption: new TextStyle(color: ColorWhite),
             )
