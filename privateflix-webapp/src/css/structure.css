@@ -19,3 +19,15 @@
 .space {
     margin-bottom: 62px;
 }
+
+.grid-container {
+    padding-left: 4px;
+    padding-right: 4px;
+}
+
+.center-container {
+    display: table;
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: 30vh;
+}

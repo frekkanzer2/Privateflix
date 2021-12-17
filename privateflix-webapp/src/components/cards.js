@@ -2,29 +2,54 @@ import React from 'react';
 import {getFilmData} from '../utils/filmdata';
 
 export function FilmCard (props) {
-    console.log(props);
+    var bgimage = props.image;
     return (
-        <div className = "filmcard">
-            <h5>{props.title}</h5>
-            <p>{props.link}</p>
+        <div className="itemfilmcard">
+            <img className="illustration" src={bgimage}/>
         </div>
     );
 }
 
-export function generateFilmCards() {
-    var contents = getFilmData().data;
+export function ItemFilmCard (props) {
+    var bgimage = props.image;
+    return (
+        <div className="itemfilmcard">
+            <img className="illustration" src={bgimage}/>
+        </div>
+    );
+}
+
+export function generateFilmCards(content, id) {
+    var contents = getFilmData(content, id, 20).data;
     var _generateCards = (cont) => {
         var _contents = [];
         var index = 0;
         cont.forEach(
             item => {
                 _contents.push(
-                    <FilmCard title={item.title} link={item.link} key={index}/>
+                    <FilmCard title={item.title} link={item.link} image={item.imgurl} key={index}/>
                 );
                 index++;
             }
         );
-        console.log(_contents);
+        return _contents;
+    }
+    return _generateCards(contents);
+}
+
+export function generateItemFilmCards(content, id) {
+    var contents = getFilmData(content, id).data;
+    var _generateCards = (cont) => {
+        var _contents = [];
+        var index = 0;
+        cont.forEach(
+            item => {
+                _contents.push(
+                    <ItemFilmCard title={item.title} link={item.link} image={item.imgurl} key={index}/>
+                );
+                index++;
+            }
+        );
         return _contents;
     }
     return _generateCards(contents);

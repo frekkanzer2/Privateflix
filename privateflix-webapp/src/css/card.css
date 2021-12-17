@@ -8,4 +8,23 @@
     margin-left: 6px;
     display: inline-block;
     overflow:hidden;
+    background-size: contain;
+}
+
+.itemfilmcard {
+    box-sizing: border-box;
+    border-radius: 6px;
+    box-shadow: 0 1px 3px 1px black;
+    width:128px;
+    height:187px;
+    margin-right: 6px;
+    margin-left: 6px;
+    margin-bottom: 8px;
+    display: inline-block;
+    overflow:hidden;
+    background-size: contain;
+}
+
+.illustration {max-width: 100%;
+    max-height: 100%;
 }

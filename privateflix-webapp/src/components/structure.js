@@ -1,13 +1,23 @@
-import {generateFilmCards} from './cards';
+import {generateFilmCards, generateItemFilmCards} from './cards';
 import {PreviewSectionLabel} from './labels';
 import { Navbar, Container, Nav, NavDropdown, Form, FormControl, Button } from 'react-bootstrap';
 
-export function createPreviewStructure(name) {
+export function createPreviewStructure(name, content, id) {
     return (
         <div className="preview-struct">
             <PreviewSectionLabel text={name}/>
             <div className="scrollable-container">
-                {generateFilmCards()}
+                {generateFilmCards(content, id)}
+            </div>
+        </div>
+    );
+}
+
+export function createContainerStructure(content, id) {
+    return (
+        <div className="container-struct">
+            <div className="grid-container">
+                {generateItemFilmCards(content, id)}
             </div>
         </div>
     );
@@ -30,7 +40,7 @@ export function TopBar(props) {
                 <Navbar.Collapse id="navbarScroll">
                 <Nav
                     className="me-auto my-2 my-lg-0"
-                    style={{ maxHeight: '100px' }}
+                    style={{ maxHeight: '500px' }}
                     navbarScroll
                 >
                     <Nav.Link onClick={functions[0]}>Home</Nav.Link>
