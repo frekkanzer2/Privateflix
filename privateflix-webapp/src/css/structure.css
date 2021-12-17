@@ -1,0 +1,17 @@
+.scrollable-container{
+    padding-top: 6px;
+    padding-bottom: 16px;
+    margin-left: 4px;
+    margin-right: 4px;
+    height:187px;
+    widows: 100%;
+    text-align:left;
+    white-space: nowrap;
+    overflow-y:hidden;
+}
+
+.preview-struct{
+    margin-left: 4px;
+    margin-right: 4px;
+    margin-bottom: 2px;
+}
