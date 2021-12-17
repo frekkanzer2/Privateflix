@@ -49,3 +49,23 @@ export function getFilmData(content, id, limit) {
         data: dataToReturn.slice(0, limit)
     }
 }
+
+export function getFilmDataByCriteria(content, id, criteria) {
+    var dataToReturn = [];
+    if (id === 100) {
+        // case random tv series
+        var allFilms = [].concat(content["category_film"]["animazione"]).concat(content["category_film"]["azione_thriller"])
+        .concat(content["category_film"]["avventura"]).concat(content["category_film"]["drammatico"]).concat(content["category_film"]["commedia"])
+        .concat(content["category_film"]["fantascienza"]).concat(content["category_film"]["horror"]).concat(content["category_serietv"]["serietv"])
+        .concat(content["category_serietv"]["serietv_animate"]);
+        allFilms.forEach(
+            item => {
+                if (item.title.toUpperCase().includes(criteria.toUpperCase()))
+                    dataToReturn.push(item);
+            }
+        );
+    }
+    return {
+        data: dataToReturn
+    }
+}

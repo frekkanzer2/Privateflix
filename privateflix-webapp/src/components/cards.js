@@ -1,5 +1,5 @@
 import React from 'react';
-import {getFilmData} from '../utils/filmdata';
+import {getFilmData, getFilmDataByCriteria} from '../utils/filmdata';
 
 export function FilmCard (props) {
     var bgimage = props.image;
@@ -53,6 +53,24 @@ export function generateFilmCards(content, id) {
 
 export function generateItemFilmCards(content, id) {
     var contents = getFilmData(content, id).data;
+    var _generateCards = (cont) => {
+        var _contents = [];
+        var index = 0;
+        cont.forEach(
+            item => {
+                _contents.push(
+                    <ItemFilmCard title={item.title} link={item.link} image={item.imgurl} key={index}/>
+                );
+                index++;
+            }
+        );
+        return _contents;
+    }
+    return _generateCards(contents);
+}
+
+export function generateSearchFilmCards(content, id, criteria) {
+    var contents = getFilmDataByCriteria(content, id, criteria).data;
     var _generateCards = (cont) => {
         var _contents = [];
         var index = 0;

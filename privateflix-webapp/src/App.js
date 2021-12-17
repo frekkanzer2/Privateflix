@@ -2,8 +2,9 @@ import './App.css';
 import './css/card.css';
 import './css/structure.css';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
-import {TopBar, Space, createPreviewStructure, createContainerStructure} from './components/structure.js';
+import {TopBar, Space, createPreviewStructure, createContainerStructure, createSearchStructure} from './components/structure.js';
 import {LoadingText, AppTitle, SectionTitle, SectionTitleDedicated} from './components/labels.js';
+import { Button } from 'react-bootstrap';
 import React from 'react';
 
 class App extends React.Component {
@@ -17,7 +18,8 @@ class App extends React.Component {
       .then((json) => {
         this.setState({
           content: json,
-          choise: 0
+          choise: 0,
+          searchCriteria: ""
         });
         console.log(this.state.content);
       })
@@ -31,12 +33,15 @@ class App extends React.Component {
         }
         {
           this.state.choise === -1 ? <AppTitle/> :
-            <TopBar onClicks={
-              [this.onHomePressed, this.onFilmPressed_Animazione, this.onFilmPressed_Azione,
-                this.onFilmPressed_Avventura, this.onFilmPressed_Drammatici, this.onFilmPressed_Commedie,
-                this.onFilmPressed_Fantascienza, this.onFilmPressed_Horror, this.onSeriePressed_TV,
-                this.onSeriePressed_Animazione]
-            }/>
+            <TopBar
+              onClicks={
+                [this.onHomePressed, this.onFilmPressed_Animazione, this.onFilmPressed_Azione,
+                  this.onFilmPressed_Avventura, this.onFilmPressed_Drammatici, this.onFilmPressed_Commedie,
+                  this.onFilmPressed_Fantascienza, this.onFilmPressed_Horror, this.onSeriePressed_TV,
+                  this.onSeriePressed_Animazione]
+              }
+              callback={this.onSearchPressed}
+            />
         }
         {
           this.state.choise === -1 ? <this._displayLoading/> :
@@ -50,6 +55,7 @@ class App extends React.Component {
           this.state.choise === 7 ? <this._display text="Film horror" id={7} media={this.state.content}/> :
           this.state.choise === 8 ? <this._display text="Serie TV" id={8} media={this.state.content}/> :
           this.state.choise === 9 ? <this._display text="Serie TV Animate" id={9} media={this.state.content}/> :
+          this.state.choise === 100 ? <this._displaySearch text="Ricerca nel catalogo" id={100} media={this.state.content} criteria={this.state.searchCriteria}/> :
           null
         }
         
@@ -97,6 +103,16 @@ class App extends React.Component {
       <div>
         <SectionTitleDedicated text={props.text}/>
         {createContainerStructure(props.media, props.id)}
+      </div>
+    );
+  }
+
+  _displaySearch = (props) => {
+    return (
+      <div>
+        <SectionTitleDedicated text={props.text}/>
+        {createSearchStructure(props.media, props.id, props.criteria)}
+        <Button variant="info" onClick={this.onHomePressed} style={{marginTop: 12}}>Torna indietro</Button>
       </div>
     );
   }
@@ -169,6 +185,14 @@ class App extends React.Component {
       this.setState({
         choise: 9
       })
+  }
+
+  onSearchPressed = (input) => {
+    console.log("onSearchPressed - received input " + input);
+    this.setState({
+      choise: 100, // choise ID for search function
+      searchCriteria: input
+    });
   }
 
 }

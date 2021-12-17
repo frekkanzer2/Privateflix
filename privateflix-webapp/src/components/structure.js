@@ -1,6 +1,7 @@
-import {generateFilmCards, generateItemFilmCards} from './cards';
+import {generateFilmCards, generateItemFilmCards, generateSearchFilmCards} from './cards';
 import {PreviewSectionLabel} from './labels';
 import { Navbar, Container, Nav, NavDropdown, Form, FormControl, Button } from 'react-bootstrap';
+import React, { Component, useState } from 'react';
 
 export function createPreviewStructure(name, content, id) {
     return (
@@ -23,6 +24,16 @@ export function createContainerStructure(content, id) {
     );
 }
 
+export function createSearchStructure(content, id, criteria) {
+    return (
+        <div className="container-struct">
+            <div className="grid-container">
+                {generateSearchFilmCards(content, id, criteria)}
+            </div>
+        </div>
+    );
+}
+
 export function Space() {
     return (
         <div className='space'></div>
@@ -32,6 +43,7 @@ export function Space() {
 // props contains an array of functions
 export function TopBar(props) {
     var functions = props.onClicks;
+    var formCallback = props.callback;
     return(
         <Navbar bg="dark" variant="dark" expand="lg" fixed="top">
             <Container fluid>
@@ -58,17 +70,51 @@ export function TopBar(props) {
                         <NavDropdown.Item onClick={functions[9]}>Serie TV Animate</NavDropdown.Item>
                     </NavDropdown>
                 </Nav>
-                <Form className="d-flex">
-                    <FormControl
-                        type="search"
-                        placeholder="Inserisci"
-                        className="me-2"
-                        aria-label="Search"
-                    />
-                    <Button variant="info">Cerca</Button>
-                </Form>
+                <SearchForm callback={formCallback}/>
                 </Navbar.Collapse>
             </Container>
         </Navbar>
     );
+}
+
+// needs a callback in props
+export class SearchForm extends Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            title: ""
+        }
+        this.formPreventDefault = this.formPreventDefault.bind(this);
+    }
+    
+    // handler recieves the `e` event object
+    formPreventDefault(e) {
+        e.preventDefault();
+        var input = this.state.title;
+        if (input.length >= 3) {
+            this.setState({title: ""});
+            console.log("RECEIVED " + input);
+            this.props.callback(input);
+        }
+    }
+
+    render() {
+        return (
+            <Form className="d-flex" onSubmit={this.formPreventDefault}>
+                <FormControl
+                    type="search"
+                    placeholder="Inserisci"
+                    className="me-2"
+                    aria-label="Search"
+                    onChange={
+                        (e) => this.setState({title: e.target.value})
+                    }
+                    value = {this.state.title}
+                />
+                <Button variant="info" type="submit">Cerca</Button>
+            </Form>
+        );
+    }
+
 }
