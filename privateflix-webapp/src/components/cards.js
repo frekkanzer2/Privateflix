@@ -18,11 +18,19 @@ export function ItemFilmCard (props) {
     var click = () => {
         window.open(props.link);
     }
-    return (
+    var bigCard = (
         <div className="itemfilmcard">
             <img className="illustration" src={bgimage} onClick={click}/>
         </div>
     );
+    var smallCard = (
+        <div className="itemfilmcard-small">
+            <img className="illustration" src={bgimage} onClick={click}/>
+        </div>
+    );
+    if (window.innerWidth >= 920)
+        return bigCard;
+    else return smallCard;
 }
 
 export function generateFilmCards(content, id) {
