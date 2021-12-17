@@ -3,18 +3,24 @@ import {getFilmData} from '../utils/filmdata';
 
 export function FilmCard (props) {
     var bgimage = props.image;
+    var click = () => {
+        window.open(props.link);
+    }
     return (
-        <div className="itemfilmcard">
-            <img className="illustration" src={bgimage}/>
+        <div className="filmcard">
+            <img className="illustration" src={bgimage} onClick={click}/>
         </div>
     );
 }
 
 export function ItemFilmCard (props) {
     var bgimage = props.image;
+    var click = () => {
+        window.open(props.link);
+    }
     return (
         <div className="itemfilmcard">
-            <img className="illustration" src={bgimage}/>
+            <img className="illustration" src={bgimage} onClick={click}/>
         </div>
     );
 }

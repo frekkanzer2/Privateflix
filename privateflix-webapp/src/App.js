@@ -10,8 +10,9 @@ class App extends React.Component {
 
   constructor(props) {
     super(props);
+    this.SERVER_ADDRESS_API = "https://test2-df6d1.firebaseio.com/root.json";
     this.state = {choise: -1};
-    fetch("https://test2-df6d1.firebaseio.com/root.json")
+    fetch(this.SERVER_ADDRESS_API)
       .then((res) => res.json())
       .then((json) => {
         this.setState({
