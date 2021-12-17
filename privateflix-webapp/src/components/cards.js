@@ -5,7 +5,7 @@ export function FilmCard (props) {
     console.log(props);
     return (
         <div className = "filmcard">
-            <h3>{props.title}</h3>
+            <h5>{props.title}</h5>
             <p>{props.link}</p>
         </div>
     );
