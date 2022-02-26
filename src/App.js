@@ -11,11 +11,19 @@ class App extends React.Component {
 
   constructor(props) {
     super(props);
-    this.SERVER_ADDRESS_API = "YOUR ADDRESS GOES HERE!!!";
+    this.SERVER_ADDRESS_API = "INSERIRE IL TUO INDIRIZZO QUI!";
     this.state = {choise: -1};
-    fetch(this.SERVER_ADDRESS_API)
-      .then((res) => res.json())
+    fetch(
+      this.SERVER_ADDRESS_API,
+      {
+        mode: "cors",
+        headers: {
+          'Access-Control-Allow-Origin':'*'
+        }
+      }
+    ).then((res) => res.json())
       .then((json) => {
+        console.log("Json retrieved");
         this.setState({
           content: json,
           choise: 0,
