@@ -58,7 +58,7 @@ export function generateSearchFilmCards(content, id, criteria) {
         cont.forEach(
             item => {
                 _contents.push(
-                    <ItemFilmCard title={item.title} link={item.link} image={item.imgurl} key={index} superkey={index}/>
+                    <ItemFilmCard title={item.title} link={item.link} image={item.imgurl} altImage={item.head} key={index} superkey={index}/>
                 );
                 index++;
             }
