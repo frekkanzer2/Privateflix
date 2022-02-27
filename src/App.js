@@ -11,7 +11,7 @@ class App extends React.Component {
 
   constructor(props) {
     super(props);
-    this.SERVER_ADDRESS_API = "INSERIRE IL TUO INDIRIZZO QUI!";
+    this.SERVER_ADDRESS_API = "DATABASE ADDRESS GOES HERE";
     this.state = {choise: -1};
     fetch(
       this.SERVER_ADDRESS_API,
@@ -78,6 +78,7 @@ class App extends React.Component {
   }
 
   _displayHome = () => {
+    console.log("CALLED DISPLAY HOME");
     var randomValue = Math.floor(Math.random() * 7) + 1;
     return (
       <div>
@@ -129,7 +130,7 @@ class App extends React.Component {
     if (this.state.choise != 0)
       this.setState({
         choise: 0
-      });
+      })
   }
 
   onFilmPressed_Animazione = () => {
