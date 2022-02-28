@@ -1,6 +1,8 @@
 import json
 
 filepath = input("Insert file path: ")
+if not filepath.endswith(".json"):
+    filepath = filepath + "\\database.json"
 
 with open(filepath, "r+") as f:
     f.seek(0)
