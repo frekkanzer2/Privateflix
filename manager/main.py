@@ -4,7 +4,7 @@ filepath = input("Insert file path: ")
 if not filepath.endswith(".json"):
     filepath = filepath + "\\database.json"
 
-with open(filepath, "r+") as f:
+with open(filepath, "r+", encoding='utf-8') as f:
     f.seek(0)
     data = json.load(f)
     while(True):
